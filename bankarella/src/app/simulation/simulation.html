@@ -1,0 +1,9 @@
+<div class="Simulation">
+    <h2>{{ data.name | titlecase }}</h2>
+    <p>Amount: {{ data.amount | currency }}</p>
+    <p>Rate: {{ data.rate | percent }}</p>
+    <p>Duration: {{ data.duration }} months</p>
+    @if (data.insurance) {
+    <p>Insurance: {{ data.insurance | percent }}</p>
+    }
+</div>
