@@ -1,9 +1,29 @@
 <div class="Simulation">
     <h2>{{ data.name | titlecase }}</h2>
-    <p>Amount: {{ data.amount | currency }}</p>
-    <p>Rate: {{ data.interestRate | percent }}</p>
-    <p>Duration: {{ data.duration }} months</p>
+
+    <div class="Simulation__stat">
+        <span class="Simulation__label">Amount</span>
+        <span class="Simulation__value">{{ data.amount | currency }}</span>
+    </div>
+
+    <div class="Simulation__stat">
+        <span class="Simulation__label">Rate</span>
+        <span class="Simulation__value">{{ data.interestRate / 100 | percent : '0.2' }}</span>
+    </div>
+
+    <div class="Simulation__stat">
+        <span class="Simulation__label">Duration</span>
+        <span class="Simulation__value">{{ data.duration }} months</span>
+    </div>
+
     @if (data.insurance) {
-    <p>Insurance: {{ data.insurance | percent }}</p>
+    <div class="Simulation__stat">
+        <span class="Simulation__label">Insurance</span>
+        <span class="Simulation__value">{{ data.insurance / 100.0 | percent : '0.2' }}</span>
+    </div>
     }
+    <div class="Simulation__stat">
+        <span class="Simulation__label">Monthly Payment</span>
+        <span class="Simulation__value">{{ monthlyPayment() | currency }}</span>
+    </div>
 </div>

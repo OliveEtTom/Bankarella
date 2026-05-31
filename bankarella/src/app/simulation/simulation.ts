@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SimulationData } from './models/simulation-data';
 import { TitleCasePipe, CurrencyPipe, PercentPipe } from '@angular/common';
+import { SimulationService } from '../services/simulation.service';
 
 @Component({
   selector: 'app-simulation',
@@ -14,5 +15,9 @@ export class Simulation implements OnInit {
 
   ngOnInit(): void {
     this.data = new SimulationData('Simulation 1', 92000, 2.2, 180, 1.53);
+  }
+  monthlyPayment(): number {
+    const simulationService = new SimulationService();
+    return simulationService.computeMonthlyPayment(this.data);
   }
 }
