@@ -1,7 +1,7 @@
 FROM debian:latest
 
 # Set environment variables
-ENV NODE_VERSION=20 \
+ENV NODE_VERSION=26 \
     ANGULAR_CLI_VERSION=latest
 
 # Install dependencies
@@ -23,6 +23,8 @@ WORKDIR /app
 
 # Install dependencies
 # RUN npm install
+RUN npm install angular-plotly.js plotly.js-dist-min --save
+RUN npm install @types/plotly.js-dist-min --save-dev
 
 # Copy the rest of the application
 COPY . .
