@@ -1,11 +1,13 @@
 .Simulation {
-    max-width: 720px;
-    margin: 1.5rem auto;
+    min-height: 100vh;
+    width: 100%;
+    max-width: none;
+    margin: 0;
     padding: 2rem;
     background: #ffffff;
-    border-radius: 28px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
     color: #0f172a;
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -61,29 +63,88 @@
 
     .Simulation__content {
         display: flex;
-        gap: 1rem;
+        gap: 1.5rem;
         align-items: stretch;
+        height: calc(100vh - 4rem);
+    }
+
+    .Simulation__actions {
+        margin-top: 0.75rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .Simulation__button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.5rem 0.9rem;
+        background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+        transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    }
+
+    .Simulation__button:active {
+        transform: translateY(1px);
+    }
+
+    .Simulation__button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    .Simulation__button-spinner {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        border-top-color: rgba(255, 255, 255, 1);
+        animation: spin 0.9s linear infinite;
+        display: inline-block;
+    }
+
+    .Simulation__button-icon {
+        color: #d1fae5;
+        font-weight: 700;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
     }
 
     .Simulation__info {
-        flex: 1 1 auto;
+        flex: 1 1 40%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        overflow: auto;
+        min-width: 260px;
     }
 
     .Simulation__plot {
-        width: 48%;
-        min-width: 220px;
+        flex: 1 1 60%;
+        min-width: 420px;
         display: flex;
+        align-items: stretch;
     }
 
     .Simulation__plot>plotly-plot {
         flex: 1 1 auto;
         height: 100%;
+        width: 100%;
+        display: block;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 1024px) {
         padding: 1.4rem;
 
         .Simulation__stat {
@@ -94,11 +155,18 @@
 
         .Simulation__content {
             flex-direction: column;
+            height: auto;
         }
 
         .Simulation__plot {
             width: 100%;
+            min-width: 0;
             margin-top: 0.75rem;
+            height: 360px;
+        }
+
+        .Simulation__plot>plotly-plot {
+            height: 100%;
         }
     }
 }
