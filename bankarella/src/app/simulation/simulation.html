@@ -2,45 +2,43 @@
     <div class="Simulation__content">
         <div class="Simulation__info">
             <h2>{{ data.name | titlecase }}</h2>
+            <form [formGroup]="simulationForm">
+                <div class="Simulation__stat">
+                    <label for="loanAmount">Amount</label>
+                    <input id="loanAmount" type="number" formControlName="loanAmount" class="Simulation__input">
+                </div>
+                <div class="Simulation__stat">
+                    <label for="interestRate">Interest Rate</label>
+                    <input id="interestRate" type="number" formControlName="interestRate" class="Simulation__input">
+                </div>
+                <div class="Simulation__stat">
+                    <label for="duration">Duration</label>
+                    <input id="duration" type="number" formControlName="duration" class="Simulation__input">
+                </div>
+                @if (data.insurance) {
+                <div class="Simulation__stat">
+                    <label for="insurance">Insurance</label>
+                    <input id="insurance" type="number" formControlName="insurance" class="Simulation__input">
+                </div>
+                }
+                <!--div class="Simulation__actions">
+                    <button class="Simulation__button" type="submit" (click)="onComputeMonthlyPayment()">Compute Monthly
+                        Payment</button>
+                </div-->
 
-            <div class="Simulation__stat">
-                <span class="Simulation__label">Amount</span>
-                <span class="Simulation__value">{{ data.amount | currency }}</span>
-            </div>
+                @if (simulationResult$ | async; as simulationResult) {
+                <div class="Simulation__stat">
+                    <span class="Simulation__label">Monthly Payment</span>
+                    <span class="Simulation__value">{{ simulationResult.monthlyPayment | currency }}</span>
+                </div>
+                }
 
-            <div class="Simulation__stat">
-                <span class="Simulation__label">Rate</span>
-                <span class="Simulation__value">{{ data.interestRate / 100 | percent : '0.2' }}</span>
-            </div>
-
-            <div class="Simulation__stat">
-                <span class="Simulation__label">Duration</span>
-                <span class="Simulation__value">{{ data.duration }} months</span>
-            </div>
-
-            @if (data.insurance) {
-            <div class="Simulation__stat">
-                <span class="Simulation__label">Insurance</span>
-                <span class="Simulation__value">{{ data.insurance / 100.0 | percent : '0.2' }}</span>
-            </div>
-            }
-            <div class="Simulation__actions">
-                <button class="Simulation__button" (click)="computeMonthlyPayment()" [disabled]="computing"
-                    [attr.aria-busy]="computing">
-                    <span class="Simulation__button-spinner" *ngIf="computing" aria-hidden="true"></span>
-                    <span class="Simulation__button-icon" *ngIf="!computing && computedMonthlyPayment">✔</span>
-                    <span class="Simulation__button-label">{{ computing ? 'Computing…' : (computedMonthlyPayment ?
-                        'Recompute' : 'Compute Monthly Payment') }}</span>
-                </button>
-            </div>
-            <div class="Simulation__stat">
-                <span class="Simulation__label">Monthly Payment</span>
-                <span class="Simulation__value">{{ monthlyPayment() | currency }}</span>
-            </div>
+            </form>
         </div>
-
+        @if (simulationResult$ | async; as simulationResult) {
         <div class="Simulation__plot">
-            <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+            <plotly-plot [data]="simulationResult.graph.data" [layout]="simulationResult.graph.layout"></plotly-plot>
         </div>
+        }
     </div>
 </div>

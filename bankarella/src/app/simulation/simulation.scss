@@ -45,6 +45,32 @@
         border: 1px solid rgba(148, 163, 184, 0.18);
     }
 
+    .Simulation__input {
+        border-radius: 5px 5px 0px 0px;
+        //box-shadow: 0px 2px 5px rgb(35 35 35 / 30%);
+        //max-height: 36px;
+        background-color: #f8fafc;
+        //transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        //transition-duration: 200ms;
+        //transition-property: background-color;
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 12px;
+        //width: 100%;
+        border-top: none;
+        border-left: none;
+        border-bottom: none;
+        border-right: none;
+        border: 1px solid #f8fafc;
+        margin: 0;
+        border-color: #f8fafc;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
     .Simulation__label {
         color: #64748b;
         font-size: 0.95rem;

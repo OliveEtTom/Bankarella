@@ -5,6 +5,28 @@ import { SimulationData } from '../simulation/models/simulation-data';
     providedIn: 'root'
 })
 export class SimulationService {
+    simulations: SimulationData[] = [];
+
+    simulationCount(): number {
+        return this.simulations.length;
+    }
+
+    addSimulation(simulationData: SimulationData): void {
+        this.simulations.push(simulationData);
+    }
+
+    getSimulation(index: number): SimulationData | undefined {
+        return this.simulations[index];
+    }
+
+    getSimulations(): SimulationData[] {
+        return this.simulations;
+    }
+
+    removeSimulation(index: number): void {
+        this.simulations.splice(index, 1);
+    }
+
     computeMonthlyPayment(simulationData: SimulationData): number {
         const { amount, interestRate, duration } = simulationData;
         const monthlyInterestRate = interestRate / 100 / 12;
@@ -37,5 +59,15 @@ export class SimulationService {
             allPayments.push(remainingBalance);
         }
         return allPayments;
+    }
+
+    computeGraphData(simulationData: SimulationData) {
+        console.log('Computing graph data for simulation:', simulationData);
+        return {
+            data: [
+                { x: Array.from(Array(simulationData.duration).keys()), y: this.computeAllPayments(simulationData), type: 'scatter', mode: 'lines+points', marker: { color: 'red' } },
+            ],
+            layout: { width: -1, height: -1, title: 'A Fancy Plot' }
+        };
     }
 }
